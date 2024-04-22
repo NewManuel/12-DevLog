@@ -51,6 +51,19 @@ THEN YOU are signed out of the site
 WHEN YOU are idle on the site for more than a set time
 THEN YOU are able to view posts and comments but YOU are prompted to log in again before YOU can add, update, or delete posts
 ```
+## Contributors 
+
+```
+Google, ChatGpt, and Morzilla.
+```
+### License
+
+>Text
+
+### Video
+
+* Link:
+
 
 ## Gif
 
