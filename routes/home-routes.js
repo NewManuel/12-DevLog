@@ -3,23 +3,21 @@ const router = require("express").Router();
 const { BlogPost, Comment, User } = require("../models");
 const withAuth = require("../utils/auth");
 
-//route to render homepage
 router.get("/", async (req, res) => {
   try {
     const blogData = await BlogPost.findAll({
       include: [{ model: User, attributes: ["name"] }],
     });
-    //convert post to plain text
+  
     const blogPosts = blogData.map((bp) => bp.get({ plain: true }));
-    // Render homepage template with posts and login status
+   
     res.render("homepage", { blogPosts, logged_in: req.session.logged_in });
 
-    // If there is an error, return 500 status code and error message
   } catch (err) {
     res.status(500).json(err);
   }
 });
-// route to render single recipe page
+
 router.get("/blogpost/:id", async (req, res) => {
   try {
     const postData = await BlogPost.findByPk(req.params.id, {
@@ -38,7 +36,7 @@ router.get("/blogpost/:id", async (req, res) => {
 });
 
 router.get("/login", (req, res) => {
-  // If the user is already logged in, redirect the request to another route
+
   if (req.session.logged_in) {
     res.redirect("/");
     return;
@@ -48,7 +46,7 @@ router.get("/login", (req, res) => {
 });
 
 router.get("/upload", (req, res) => {
-  // If the user is not logged in, redirect the request to another route
+
   if (!req.session.logged_in) {
     res.redirect("/login");
     return;
@@ -79,8 +77,8 @@ router.post("/login", async (req, res) => {
     }
 
     req.session.save(() => {
-      //save session data
-      req.session.user_id = userData.id; //save logged in user id
+    
+      req.session.user_id = userData.id; 
       req.session.logged_in = true;
 
       res.json({ user: userData, message: "You are now logged in!" });
